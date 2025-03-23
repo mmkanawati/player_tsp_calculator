@@ -1,54 +1,61 @@
+// Event listener for the checkbox changes
+document.querySelectorAll('input[name="divisionsPlayed"]').forEach(function(checkbox) {
+    checkbox.addEventListener('change', toggleDivisionFields);
+});
+
+function toggleDivisionFields() {
+    // Get the checkbox values
+    const d1Played = document.getElementById('d1').checked;
+    const d2Played = document.getElementById('d2').checked;
+    const d3Played = document.getElementById('d3').checked;
+
+    // Show or hide input fields based on checkbox selection
+    document.getElementById('d1Fields').style.display = d1Played ? 'block' : 'none';
+    document.getElementById('d2Fields').style.display = d2Played ? 'block' : 'none';
+    document.getElementById('d3Fields').style.display = d3Played ? 'block' : 'none';
+}
+
 function checkEligibility() {
-    // Get input values
-    const divisionsPlayed = [];
-    const checkboxes = document.querySelectorAll('input[name="divisionsPlayed"]:checked');
-    checkboxes.forEach(checkbox => divisionsPlayed.push(checkbox.value));
+    // Get user inputs from checkboxes and text fields
+    const d1TSP = parseFloat(document.getElementById('TSPD1').value) || 0;
+    const d1Games = parseInt(document.getElementById('gamesD1').value) || 0;
 
-    const divisionPlanned = document.querySelector('input[name="divisionsPlanned"]:checked');
-    const TSPD1 = parseFloat(document.getElementById("TSPD1").value) || 0;
-    const gamesD1 = parseInt(document.getElementById("gamesD1").value) || 0;
-    const TSPD2 = parseFloat(document.getElementById("TSPD2").value) || 0;
-    const gamesD2 = parseInt(document.getElementById("gamesD2").value) || 0;
-    const TSPD3 = parseFloat(document.getElementById("TSPD3").value) || 0;
-    const gamesD3 = parseInt(document.getElementById("gamesD3").value) || 0;
+    const d2TSP = parseFloat(document.getElementById('TSPD2').value) || 0;
+    const d2Games = parseInt(document.getElementById('gamesD2').value) || 0;
 
-    // Calculate TSP per game for each division
-    const TSPPerGameD1 = gamesD1 > 0 ? (TSPD1 / gamesD1).toFixed(1) : 0;
-    const TSPPerGameD2 = gamesD2 > 0 ? (TSPD2 / gamesD2).toFixed(1) : 0;
-    const TSPPerGameD3 = gamesD3 > 0 ? (TSPD3 / gamesD3).toFixed(1) : 0;
+    const d3TSP = parseFloat(document.getElementById('TSPD3').value) || 0;
+    const d3Games = parseInt(document.getElementById('gamesD3').value) || 0;
 
-    // Eligibility check based on TSP and the rules you provided
-    let result = "";
-    
-    if (divisionPlanned) {
-        const division = divisionPlanned.value;
+    // Eligibility rules
+    let resultMessage = "";
 
-        // Check if they are eligible for the division they want to play
-        if (division === "D1") {
-            if (TSPPerGameD1 >= 16.5) {
-                result = "Not eligible for D1.";
-            } else {
-                result = "Eligible for D1.";
-            }
-        } else if (division === "D2") {
-            if (TSPPerGameD2 >= 30) {
-                result = "Not eligible for D2.";
-            } else if (TSPPerGameD2 >= 16.5) {
-                result = "Eligible for D2.";
-            } else {
-                result = "Not eligible for D2.";
-            }
-        } else if (division === "D3") {
-            if (TSPPerGameD3 >= 20) {
-                result = "Not eligible for D3.";
-            } else if (TSPPerGameD3 >= 15) {
-                result = "Eligible for D3.";
-            } else {
-                result = "Not eligible for D3.";
-            }
-        }
+    // Check eligibility for each division based on TSP and games played
+    const d1Points = d1Games > 0 ? (d1TSP / d1Games).toFixed(1) : 0;
+    const d2Points = d2Games > 0 ? (d2TSP / d2Games).toFixed(1) : 0;
+    const d3Points = d3Games > 0 ? (d3TSP / d3Games).toFixed(1) : 0;
+
+    // Eligibility logic based on rules
+    if (d1Points >= 16.5) {
+        resultMessage += "You are not eligible for D2 due to your D1 TSP.\n";
+    } else if (d1Points >= 11.5) {
+        resultMessage += "You are a point in D2.\n";
     }
 
-    // Show result in the result div
-    document.getElementById("result").innerHTML = result;
+    if (d2Points >= 30.0) {
+        resultMessage += "You are not eligible for D2 due to your D2 TSP.\n";
+    } else if (d2Points >= 16.5) {
+        resultMessage += "You are a point in D3.\n";
+    }
+
+    if (d3Points >= 20.0) {
+        resultMessage += "You are not eligible for D3 due to your D3 TSP.\n";
+    } else if (d3Points >= 15.0) {
+        resultMessage += "You are a point in D3.\n";
+    }
+
+    // Output the result message
+    document.getElementById('result').textContent = resultMessage;
 }
+
+// Call the toggle function initially to set correct visibility for input fields
+toggleDivisionFields();
