@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Player Eligibility</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
     <form id="eligibilityForm">
+        <h1>Player Eligibility Form</h1>
+
         <label for="divisionsPlayed">Which divisions have you played in the past two seasons? (Select all that apply):</label><br>
         <input type="checkbox" id="d1" name="divisionsPlayed" value="D1"> D1<br>
         <input type="checkbox" id="d2" name="divisionsPlayed" value="D2"> D2<br>
@@ -18,18 +21,26 @@
         <input type="radio" id="planD2" name="divisionsPlanned" value="D2"> D2<br>
         <input type="radio" id="planD3" name="divisionsPlanned" value="D3"> D3<br><br>
 
+        <!-- Dynamic Division Input Container -->
         <div id="TSPAndGamesContainer">
-            <label for="TSPD1">Enter TSP and games for D1:</label><br>
-            TSP: <input type="number" id="TSPD1" name="TSPD1" step="any"><br>
-            Games: <input type="number" id="gamesD1" name="gamesD1"><br><br>
+            <!-- Fields for TSP and Games will be shown/hidden based on divisions played -->
+            <div id="d1Fields" class="divisionFields">
+                <label for="TSPD1">Enter TSP and games for D1:</label><br>
+                TSP: <input type="number" id="TSPD1" name="TSPD1" step="any"><br>
+                Games: <input type="number" id="gamesD1" name="gamesD1"><br><br>
+            </div>
 
-            <label for="TSPD2">Enter TSP and games for D2:</label><br>
-            TSP: <input type="number" id="TSPD2" name="TSPD2" step="any"><br>
-            Games: <input type="number" id="gamesD2" name="gamesD2"><br><br>
+            <div id="d2Fields" class="divisionFields">
+                <label for="TSPD2">Enter TSP and games for D2:</label><br>
+                TSP: <input type="number" id="TSPD2" name="TSPD2" step="any"><br>
+                Games: <input type="number" id="gamesD2" name="gamesD2"><br><br>
+            </div>
 
-            <label for="TSPD3">Enter TSP and games for D3:</label><br>
-            TSP: <input type="number" id="TSPD3" name="TSPD3" step="any"><br>
-            Games: <input type="number" id="gamesD3" name="gamesD3"><br><br>
+            <div id="d3Fields" class="divisionFields">
+                <label for="TSPD3">Enter TSP and games for D3:</label><br>
+                TSP: <input type="number" id="TSPD3" name="TSPD3" step="any"><br>
+                Games: <input type="number" id="gamesD3" name="gamesD3"><br><br>
+            </div>
         </div>
 
         <button type="button" onclick="checkEligibility()">Submit</button>
@@ -37,7 +48,6 @@
 
     <div id="result"></div>
 
-    <!-- Link to your external JavaScript file -->
     <script src="app.js"></script>
 </body>
 </html>
