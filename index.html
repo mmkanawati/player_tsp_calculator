@@ -8,11 +8,35 @@
 </head>
 <body>
   <h1>Player TSP Calculator</h1>
+
   <form id="playerForm">
-    <label for="divisions">Which divisions have you played in the past two seasons? (e.g., D2, D3)</label>
-    <input type="text" id="divisions" placeholder="Enter D2, D3" required>
+    <!-- Divisions Played (Multiple Choice) -->
+    <label for="divisionsPlayed">Which divisions have you played in the past two seasons? (Select multiple)</label><br>
+    <input type="checkbox" id="D1" name="divisionsPlayed" value="D1"> D1
+    <input type="checkbox" id="D2" name="divisionsPlayed" value="D2"> D2
+    <input type="checkbox" id="D3" name="divisionsPlayed" value="D3"> D3
     <br><br>
-    
+
+    <!-- Division They Plan to Play (Single Choice) -->
+    <label for="divisionsPlanned">Which division do you plan on playing?</label>
+    <select id="divisionsPlanned" name="divisionsPlanned">
+      <option value="D1">D1</option>
+      <option value="D2">D2</option>
+      <option value="D3">D3</option>
+    </select>
+    <br><br>
+
+    <!-- Input Fields for Each Division Played -->
+    <div id="D1Form" style="display: none;">
+      <h2>D1 Season Information</h2>
+      <label for="D1Games">Games Played in D1:</label>
+      <input type="number" id="D1Games" required>
+      <br>
+      <label for="D1TSP">Total TSP in D1:</label>
+      <input type="number" id="D1TSP" required>
+      <br><br>
+    </div>
+
     <div id="D2Form" style="display: none;">
       <h2>D2 Season Information</h2>
       <label for="D2Games">Games Played in D2:</label>
@@ -32,7 +56,7 @@
       <input type="number" id="D3TSP" required>
       <br><br>
     </div>
-    
+
     <button type="submit">Submit</button>
   </form>
 
