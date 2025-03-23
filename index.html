@@ -11,6 +11,10 @@
     <form id="playerForm">
         <h1>Player TSP Calculator</h1>
 
+        <p style="font-style: italic; color: gray;">
+            *Disclaimer: None of these results are final. Eligibility is subject to further review.*
+        </p>
+
         <!-- Divisions Played Checkbox -->
         <label for="divisionsPlayed">Which divisions have you played in the past two seasons? (Select all that apply):</label><br>
         <input type="checkbox" id="d1" name="divisionsPlayed" value="D1"> D1<br>
@@ -25,6 +29,7 @@
 
         <!-- TSP and Games Input (Initially Hidden) -->
         <div id="D1Fields" class="divisionFields" style="display: none;">
+            <p><strong>Note:</strong> If the player has played fewer than 10 games in the past 2 seasons in D1, include a third season to reach a minimum of 10 games.</p>
             <label for="D1TSP">Enter the total # of TSP in the past 2 seasons for D1:</label>
             <input type="number" id="D1TSP" name="D1TSP" step="any"><br>
             <label for="D1Games">Enter the total # of games played in the past 2 seasons for D1:</label>
@@ -32,13 +37,15 @@
         </div>
 
         <div id="D2Fields" class="divisionFields" style="display: none;">
-            <label for="D2TSP">Enter the total # of TSP in the past 2 seasons fo:</label>
+            <p><strong>Note:</strong> If the player has played fewer than 10 games in the past 2 seasons in D2, include a third season to reach a minimum of 10 games.</p>
+            <label for="D2TSP">Enter the total # of TSP in the past 2 seasons for D2:</label>
             <input type="number" id="D2TSP" name="D2TSP" step="any"><br>
             <label for="D2Games">Enter the total # of games played in the past 2 seasons for D2:</label>
             <input type="number" id="D2Games" name="D2Games"><br><br>
         </div>
 
         <div id="D3Fields" class="divisionFields" style="display: none;">
+            <p><strong>Note:</strong> If the player has played fewer than 10 games in the past 2 seasons in D3, include a third season to reach a minimum of 10 games.</p>
             <label for="D3TSP">Enter the total # of TSP in the past 2 seasons for D3:</label>
             <input type="number" id="D3TSP" name="D3TSP" step="any"><br>
             <label for="D3Games">Enter the total # of games played in the past 2 seasons for D3:</label>
