@@ -46,25 +46,19 @@ document.getElementById("playerForm").addEventListener("submit", function (event
     // Check for eligibility based on the division they want to play
     if (divisionPlanned === "D1") {
         // D1 Eligibility Check
-        if (D1TSP / D1Games >= 16.5) {
-            eligibilityStatus = "Not eligible for D1.";
-        } else if (D1TSP / D1Games >= 11.5 && D1TSP / D1Games <= 16.49) {
-            eligibilityStatus = "You are 1 point for D1.";
-        } else if (D1TSP / D1Games <= 4) {
-            eligibilityStatus = "Past D1 player, eligible for D3.";
-        } else {
-            eligibilityStatus = "Eligible for D1.";
-        }
+        eligibilityStatus = "Eligible for D1.";
     }
 
     if (divisionPlanned === "D2") {
         // D2 Eligibility Check
-        if (D2TSP / D2Games >= 30.0) {
+        if (D1TSP / D1Games >= 16.5) {
+            eligibilityStatus = "Not eligible for D2.";
+        } else if (D1TSP / D1Games >= 11.5 && D1TSP / D1Games <= 16.49) {
+            eligibilityStatus = "You are 1 point for D2.";
+        } else if (D2TSP / D2Games >= 30.0) {
             eligibilityStatus = "Not eligible for D2.";
         } else if (D2TSP / D2Games >= 16.5 && D2TSP / D2Games <= 29.99) {
             eligibilityStatus = "You are 1 point for D2.";
-        } else if (D2TSP / D2Games >= 12) {
-            eligibilityStatus = "Not eligible for D3 from D2.";
         } else {
             eligibilityStatus = "Eligible for D2.";
         }
