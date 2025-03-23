@@ -1,3 +1,14 @@
+// Listen for changes on all division checkboxes to show or hide the note
+document.querySelectorAll('input[name="divisionsPlayed"]').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+        const note = document.getElementById('note');
+        // If any checkbox is checked, show the note; otherwise, hide it
+        const anyChecked = document.querySelectorAll('input[name="divisionsPlayed"]:checked').length > 0;
+        note.style.display = anyChecked ? 'block' : 'none';  // Show or hide the note based on checkbox status
+    });
+});
+
+
 document.getElementById("playerForm").addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -6,13 +17,6 @@ document.getElementById("playerForm").addEventListener("submit", function (event
     document.querySelectorAll('input[name="divisionsPlayed"]:checked').forEach(checkbox => {
         divisionsPlayed.push(checkbox.value);
     });
-
-    const note = document.getElementById('note');
-    if (divisionsPlayed.length > 0) {
-        note.style.display = 'block'; // Show the note if any division is selected
-    } else {
-        note.style.display = 'none'; // Hide the note if no division is selected
-    }
 
     const divisionPlanned = document.querySelector('input[name="divisionsPlanned"]:checked')?.value;
 
