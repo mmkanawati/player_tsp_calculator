@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Player TSP Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Player TSP Calculator</h1>
+  <form id="playerForm">
+    <label for="divisions">Which divisions have you played in the past two seasons? (e.g., D2, D3)</label>
+    <input type="text" id="divisions" placeholder="Enter D2, D3" required>
+    <br><br>
+    
+    <div id="D2Form" style="display: none;">
+      <h2>D2 Season Information</h2>
+      <label for="D2Games">Games Played in D2:</label>
+      <input type="number" id="D2Games" required>
+      <br>
+      <label for="D2TSP">Total TSP in D2:</label>
+      <input type="number" id="D2TSP" required>
+      <br><br>
+    </div>
+
+    <div id="D3Form" style="display: none;">
+      <h2>D3 Season Information</h2>
+      <label for="D3Games">Games Played in D3:</label>
+      <input type="number" id="D3Games" required>
+      <br>
+      <label for="D3TSP">Total TSP in D3:</label>
+      <input type="number" id="D3TSP" required>
+      <br><br>
+    </div>
+    
+    <button type="submit">Submit</button>
+  </form>
+
+  <h2>Results:</h2>
+  <p id="results"></p>
+
+  <script src="app.js"></script>
+</body>
+</html>
