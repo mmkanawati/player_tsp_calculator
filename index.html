@@ -9,7 +9,7 @@
 <body>
 
     <form id="playerForm">
-        <h1>Player Eligibility Form</h1>
+        <h1>Player TSP Calculator</h1>
 
         <!-- Divisions Played Checkbox -->
         <label for="divisionsPlayed">Which divisions have you played in the past two seasons? (Select all that apply):</label><br>
@@ -25,27 +25,27 @@
 
         <!-- TSP and Games Input (Initially Hidden) -->
         <div id="D1Fields" class="divisionFields" style="display: none;">
-            <label for="D1TSP">Enter TSP for D1:</label>
+            <label for="D1TSP">Enter the total # of TSP in the past 2 seasons for D1:</label>
             <input type="number" id="D1TSP" name="D1TSP" step="any"><br>
-            <label for="D1Games">Enter games played for D1:</label>
+            <label for="D1Games">Enter the total # of games played in the past 2 seasons for D1:</label>
             <input type="number" id="D1Games" name="D1Games"><br><br>
         </div>
 
         <div id="D2Fields" class="divisionFields" style="display: none;">
-            <label for="D2TSP">Enter TSP for D2:</label>
+            <label for="D2TSP">Enter the total # of TSP in the past 2 seasons fo:</label>
             <input type="number" id="D2TSP" name="D2TSP" step="any"><br>
-            <label for="D2Games">Enter games played for D2:</label>
+            <label for="D2Games">Enter the total # of games played in the past 2 seasons for D2:</label>
             <input type="number" id="D2Games" name="D2Games"><br><br>
         </div>
 
         <div id="D3Fields" class="divisionFields" style="display: none;">
-            <label for="D3TSP">Enter TSP for D3:</label>
+            <label for="D3TSP">Enter the total # of TSP in the past 2 seasons for D3:</label>
             <input type="number" id="D3TSP" name="D3TSP" step="any"><br>
-            <label for="D3Games">Enter games played for D3:</label>
+            <label for="D3Games">Enter the total # of games played in the past 2 seasons for D3:</label>
             <input type="number" id="D3Games" name="D3Games"><br><br>
         </div>
 
-        <button type="submit">Submit</button>
+        <button type="submit">Calculate</button>
     </form>
 
     <div id="result"></div>
