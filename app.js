@@ -7,6 +7,13 @@ document.getElementById("playerForm").addEventListener("submit", function (event
         divisionsPlayed.push(checkbox.value);
     });
 
+    const note = document.getElementById('note');
+    if (divisionsPlayed.length > 0) {
+        note.style.display = 'block'; // Show the note if any division is selected
+    } else {
+        note.style.display = 'none'; // Hide the note if no division is selected
+    }
+
     const divisionPlanned = document.querySelector('input[name="divisionsPlanned"]:checked')?.value;
 
     // Get inputs for each division (only if the division is selected)
