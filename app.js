@@ -23,27 +23,66 @@ document.getElementById("playerForm").addEventListener("submit", function (event
     let resultText = "";
     let totalGames = 0;
     let totalTSP = 0;
+    let eligibilityStatus = "";
 
     if (D1Games > 0) {
         totalGames += D1Games;
         totalTSP += D1TSP;
-        resultText += `D1: ${D1TSP / D1Games} points/game\n`;
+        resultText += `D1: ${(D1TSP / D1Games).toFixed(1)} TSP\n`;
     }
 
     if (D2Games > 0) {
         totalGames += D2Games;
         totalTSP += D2TSP;
-        resultText += `D2: ${D2TSP / D2Games} points/game\n`;
+        resultText += `D2: ${(D2TSP / D2Games).toFixed(1)} TSP\n`;
     }
 
     if (D3Games > 0) {
         totalGames += D3Games;
         totalTSP += D3TSP;
-        resultText += `D3: ${D3TSP / D3Games} points/game\n`;
+        resultText += `D3: ${(D3TSP / D3Games).toFixed(1)} TSP\n`;
     }
 
-    const averageTSP = totalTSP / totalGames;
-    resultText += `Average TSP per game: ${averageTSP.toFixed(1)}\n`;
+    // Check for eligibility based on the division they want to play
+    if (divisionPlanned === "D1") {
+        // D1 Eligibility Check
+        if (D1TSP / D1Games >= 16.5) {
+            eligibilityStatus = "Not eligible for D1.";
+        } else if (D1TSP / D1Games >= 11.5 && D1TSP / D1Games <= 16.49) {
+            eligibilityStatus = "You are 1 point for D1.";
+        } else if (D1TSP / D1Games <= 4) {
+            eligibilityStatus = "Past D1 player, eligible for D3.";
+        } else {
+            eligibilityStatus = "Eligible for D1.";
+        }
+    }
+
+    if (divisionPlanned === "D2") {
+        // D2 Eligibility Check
+        if (D2TSP / D2Games >= 30.0) {
+            eligibilityStatus = "Not eligible for D2.";
+        } else if (D2TSP / D2Games >= 16.5 && D2TSP / D2Games <= 29.99) {
+            eligibilityStatus = "You are 1 point for D2.";
+        } else if (D2TSP / D2Games >= 12) {
+            eligibilityStatus = "Not eligible for D3 from D2.";
+        } else {
+            eligibilityStatus = "Eligible for D2.";
+        }
+    }
+
+    if (divisionPlanned === "D3") {
+        // D3 Eligibility Check
+        if (D3TSP / D3Games >= 20.0) {
+            eligibilityStatus = "Not eligible for D3.";
+        } else if (D3TSP / D3Games >= 15.0) {
+            eligibilityStatus = "You are 1 point for D3.";
+        } else {
+            eligibilityStatus = "Eligible for D3.";
+        }
+    }
+
+    // Show the eligibility result in the result div
+    resultText += `${eligibilityStatus}\n`;
 
     // Show the result in the result div
     document.getElementById("result").innerText = resultText;
