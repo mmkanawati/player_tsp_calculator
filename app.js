@@ -55,10 +55,10 @@ document.getElementById("playerForm").addEventListener("submit", function (event
             eligibilityStatus = "Not eligible for D2.";
         } else if (D2TSP / D2Games >= 30.0) {
             eligibilityStatus = "Not eligible for D2.";
-        } else if (D1TSP / D1Games >= 11.5 && D1TSP / D1Games <= 16.49) {
-            eligibilityStatus = "You are 1 point for D2.";
-        } else if (D2TSP / D2Games >= 16.5 && D2TSP / D2Games <= 29.99) {
-            eligibilityStatus = "You are 1 point for D2.";
+        } else if (D1TSP / D1Games >= 11.5) {
+            eligibilityStatus = "You are 1 point in D2.";
+        } else if (D2TSP / D2Games >= 16.5) {
+            eligibilityStatus = "You are 1 point in D2.";
         } else {
             eligibilityStatus = "Eligible for D2.";
         }
@@ -73,16 +73,16 @@ document.getElementById("playerForm").addEventListener("submit", function (event
         } else if (D1TSP / D1Games > 4) {
             eligibilityStatus = "Not eligible for D3. Past D1 players who averaged more than 4 TSP may be allowed on a case-by-case basis.";
         } else if (D3TSP / D3Games >= 15.0) {
-            eligibilityStatus = "You are 1 point for D3.";
-        } else if (D1TSP / D1Games >= 8 && D1TSP / D1Games < 12) {
-            eligibilityStatus = "You are 1 point for D3.";
+            eligibilityStatus = "You are 1 point in D3.";
+        } else if (D2TSP / D1Games >= 8) {
+            eligibilityStatus = "You are 1 point in D3.";
         } else {
             eligibilityStatus = "Eligible for D3.";
         }
     }
 
     // Show the eligibility result in the result div
-    resultText += `${eligibilityStatus}\n`;
+    resultText += `\n${eligibilityStatus}\n`;
 
     // Show the result in the result div
     document.getElementById("result").innerText = resultText;
