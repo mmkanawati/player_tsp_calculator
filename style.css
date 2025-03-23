@@ -7,7 +7,7 @@ label {
   font-size: 1.1em;
 }
 
-input {
+input, select {
   margin: 5px 0 10px;
 }
 
