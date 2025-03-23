@@ -1,98 +1,54 @@
-document.getElementById("playerForm").addEventListener("submit", function (event) {
-  event.preventDefault();
+function checkEligibility() {
+    // Get input values
+    const divisionsPlayed = [];
+    const checkboxes = document.querySelectorAll('input[name="divisionsPlayed"]:checked');
+    checkboxes.forEach(checkbox => divisionsPlayed.push(checkbox.value));
 
-  // Get selected divisions
-  const divisionsPlayed = [];
-  document.querySelectorAll('input[name="divisionsPlayed"]:checked').forEach(checkbox => {
-    divisionsPlayed.push(checkbox.value);
-  });
-  const divisionPlanned = document.getElementById("divisionsPlanned").value;
+    const divisionPlanned = document.querySelector('input[name="divisionsPlanned"]:checked');
+    const TSPD1 = parseFloat(document.getElementById("TSPD1").value) || 0;
+    const gamesD1 = parseInt(document.getElementById("gamesD1").value) || 0;
+    const TSPD2 = parseFloat(document.getElementById("TSPD2").value) || 0;
+    const gamesD2 = parseInt(document.getElementById("gamesD2").value) || 0;
+    const TSPD3 = parseFloat(document.getElementById("TSPD3").value) || 0;
+    const gamesD3 = parseInt(document.getElementById("gamesD3").value) || 0;
 
-  // Get inputs for each division
-  const D1Games = parseInt(document.getElementById("D1Games").value) || 0;
-  const D1TSP = parseInt(document.getElementById("D1TSP").value) || 0;
-  const D2Games = parseInt(document.getElementById("D2Games").value) || 0;
-  const D2TSP = parseInt(document.getElementById("D2TSP").value) || 0;
-  const D3Games = parseInt(document.getElementById("D3Games").value) || 0;
-  const D3TSP = parseInt(document.getElementById("D3TSP").value) || 0;
+    // Calculate TSP per game for each division
+    const TSPPerGameD1 = gamesD1 > 0 ? (TSPD1 / gamesD1).toFixed(1) : 0;
+    const TSPPerGameD2 = gamesD2 > 0 ? (TSPD2 / gamesD2).toFixed(1) : 0;
+    const TSPPerGameD3 = gamesD3 > 0 ? (TSPD3 / gamesD3).toFixed(1) : 0;
 
-  let resultsText = "";
-  let totalGames = 0;
-  let totalTSP = 0;
+    // Eligibility check based on TSP and the rules you provided
+    let result = "";
+    
+    if (divisionPlanned) {
+        const division = divisionPlanned.value;
 
-  // Handle D1 calculation
-  if (divisionsPlayed.includes("D1")) {
-    if (D1Games > 0 && D1TSP > 0) {
-      const D1TSPPerGame = (D1TSP / D1Games).toFixed(1);
-      resultsText += `D1 TSP per game: ${D1TSPPerGame} <br>`;
-      totalGames += D1Games;
-      totalTSP += D1TSP;
-    } else {
-      resultsText += "Please provide valid D1 season data. <br>";
+        // Check if they are eligible for the division they want to play
+        if (division === "D1") {
+            if (TSPPerGameD1 >= 16.5) {
+                result = "Not eligible for D1.";
+            } else {
+                result = "Eligible for D1.";
+            }
+        } else if (division === "D2") {
+            if (TSPPerGameD2 >= 30) {
+                result = "Not eligible for D2.";
+            } else if (TSPPerGameD2 >= 16.5) {
+                result = "Eligible for D2.";
+            } else {
+                result = "Not eligible for D2.";
+            }
+        } else if (division === "D3") {
+            if (TSPPerGameD3 >= 20) {
+                result = "Not eligible for D3.";
+            } else if (TSPPerGameD3 >= 15) {
+                result = "Eligible for D3.";
+            } else {
+                result = "Not eligible for D3.";
+            }
+        }
     }
-  }
 
-  // Handle D2 calculation
-  if (divisionsPlayed.includes("D2")) {
-    if (D2Games > 0 && D2TSP > 0) {
-      const D2TSPPerGame = (D2TSP / D2Games).toFixed(1);
-      resultsText += `D2 TSP per game: ${D2TSPPerGame} <br>`;
-      totalGames += D2Games;
-      totalTSP += D2TSP;
-    } else {
-      resultsText += "Please provide valid D2 season data. <br>";
-    }
-  }
-
-  // Handle D3 calculation
-  if (divisionsPlayed.includes("D3")) {
-    if (D3Games > 0 && D3TSP > 0) {
-      const D3TSPPerGame = (D3TSP / D3Games).toFixed(1);
-      resultsText += `D3 TSP per game: ${D3TSPPerGame} <br>`;
-      totalGames += D3Games;
-      totalTSP += D3TSP;
-    } else {
-      resultsText += "Please provide valid D3 season data. <br>";
-    }
-  }
-
-  // Calculate total TSP per game
-  const totalTSPPerGame = (totalTSP / totalGames).toFixed(1);
-  resultsText += `Total TSP per game: ${totalTSPPerGame} <br><br>`;
-
-  // Apply eligibility rules based on TSP and division planned
-  let eligibility = "Eligible";
-
-  if (divisionPlanned === "D1" && totalTSPPerGame >= 16.5) {
-    eligibility = "Not eligible for D2";
-  } else if (divisionPlanned === "D2" && totalTSPPerGame >= 30.0) {
-    eligibility = "Not eligible for D2";
-  } else if (divisionPlanned === "D3" && totalTSPPerGame >= 20.0) {
-    eligibility = "Not eligible for D3";
-  }
-
-  // Final eligibility message
-  resultsText += `Eligibility for planned division (${divisionPlanned}): ${eligibility}`;
-  document.getElementById("results").innerHTML = resultsText;
-});
-
-// Show/hide the forms based on the divisions played
-document.querySelectorAll('input[name="divisionsPlayed"]').forEach(input => {
-  input.addEventListener("change", function () {
-    if (document.getElementById("D1").checked) {
-      document.getElementById("D1Form").style.display = "block";
-    } else {
-      document.getElementById("D1Form").style.display = "none";
-    }
-    if (document.getElementById("D2").checked) {
-      document.getElementById("D2Form").style.display = "block";
-    } else {
-      document.getElementById("D2Form").style.display = "none";
-    }
-    if (document.getElementById("D3").checked) {
-      document.getElementById("D3Form").style.display = "block";
-    } else {
-      document.getElementById("D3Form").style.display = "none";
-    }
-  });
-});
+    // Show result in the result div
+    document.getElementById("result").innerHTML = result;
+}
