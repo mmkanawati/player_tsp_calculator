@@ -39,19 +39,19 @@ document.getElementById("playerForm").addEventListener("submit", function (event
     if (D1Games > 0) {
         totalGames += D1Games;
         totalTSP += D1TSP;
-        resultText += `D1: ${(D1TSP / D1Games).toFixed(1)} TSP\n`;
+        resultText += `D1: ${(D1TSP / D1Games).toFixed(2)} TSP\n`;
     }
 
     if (D2Games > 0) {
         totalGames += D2Games;
         totalTSP += D2TSP;
-        resultText += `D2: ${(D2TSP / D2Games).toFixed(1)} TSP\n`;
+        resultText += `D2: ${(D2TSP / D2Games).toFixed(2)} TSP\n`;
     }
 
     if (D3Games > 0) {
         totalGames += D3Games;
         totalTSP += D3TSP;
-        resultText += `D3: ${(D3TSP / D3Games).toFixed(1)} TSP\n`;
+        resultText += `D3: ${(D3TSP / D3Games).toFixed(2)} TSP\n`;
     }
 
     // Check for eligibility based on the division they want to play
