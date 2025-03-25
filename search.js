@@ -50,10 +50,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 const firstNameInput = firstNameSearch.value.toLowerCase();
                 const lastNameInput = lastNameSearch.value.toLowerCase();
 
-                const filteredPlayers = players.filter(player =>
-                    (firstNameInput === "" || player['First Name'].toLowerCase().includes(firstNameInput)) &&
-                    (lastNameInput === "" || player['Last Name'].toLowerCase().includes(lastNameInput))
-                );
+                const filteredPlayers = players.filter(player => {
+                    // Ensure 'First Name' and 'Last Name' are not null or undefined
+                    const firstName = player['First Name'] ? player['First Name'].toLowerCase() : '';
+                    const lastName = player['Last Name'] ? player['Last Name'].toLowerCase() : '';
+
+                    return (
+                        (firstNameInput === "" || firstName.includes(firstNameInput)) &&
+                        (lastNameInput === "" || lastName.includes(lastNameInput))
+                    );
+                });
 
                 displayPlayers(filteredPlayers); // Display the filtered players after clicking the button
             }
