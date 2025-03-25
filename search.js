@@ -33,18 +33,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // Display player information
                     playerInfo.innerHTML = `
-                        <p><strong>${player['First Name']} ${player['Last Name']}</strong></p>
-                        <p>Season: ${player['Season.1']}</p>
-                        <p>Team: ${player['Team']}</p>
-                        <p>Games Played: ${player['GP']}</p>
-                        <p>Points: ${player['PTS']}</p>
-                        <p>Rebounds: ${player['REB']}</p>
-                        <p>Assists: ${player['AST']}</p>
-                        <p>Steals: ${player['STL']}</p>
-                        <p>Blocks: ${player['BLK']}</p>
-                        <p>Turnovers: ${player['TO']}</p>
-                        <p>Personal Fouls: ${player['PF']}</p>
-                        <p>TSP: ${player['TSP']}</p>
+                        <div class="player-details">
+                            <div><strong>${player['First Name']} ${player['Last Name']}</strong></div>
+                            <div>Season: ${player['Season.1']}</div>
+                            <div>Team: ${player['Team']}</div>
+                            <div>Games Played: ${player['GP']}</div>
+                            <div>Points: ${player['PTS']}</div>
+                            <div>Rebounds: ${player['REB']}</div>
+                            <div>Assists: ${player['AST']}</div>
+                            <div>Steals: ${player['STL']}</div>
+                            <div>Blocks: ${player['BLK']}</div>
+                            <div>Turnovers: ${player['TO']}</div>
+                            <div>Personal Fouls: ${player['PF']}</div>
+                            <div>TSP: ${player['TSP']}</div>
+                        </div>
                     `;
 
                     resultsDiv.appendChild(playerInfo);
