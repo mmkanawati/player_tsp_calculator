@@ -51,6 +51,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     resultsDiv.appendChild(playerInfo);
                 });
 
+                // Clear previous pagination buttons
+                const paginationDiv = document.getElementById("pagination");
+                if (paginationDiv) {
+                    paginationDiv.remove();
+                }
+
+                const paginationButtons = document.createElement("div");
+                paginationButtons.id = "pagination";
+
                 // Display "Previous" button if we are not on the first page
                 if (currentPage > 0) {
                     const prevButton = document.createElement("button");
@@ -59,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         currentPage--;
                         displayPlayers(); // Load previous page of results
                     });
-                    resultsDiv.appendChild(prevButton);
+                    paginationButtons.appendChild(prevButton);
                 }
 
                 // Display "Next" button if there are more players to show
@@ -70,8 +79,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         currentPage++;
                         displayPlayers(); // Load next page of results
                     });
-                    resultsDiv.appendChild(nextButton);
+                    paginationButtons.appendChild(nextButton);
                 }
+
+                resultsDiv.appendChild(paginationButtons);
             }
 
             // Function to filter players by first name and last name
