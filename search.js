@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
             function displayPlayers() {
                 resultsDiv.innerHTML = ""; // Clear previous results
 
+                // Calculate slice indices for pagination
                 const start = currentPage * 5;
                 const end = start + 5;
                 const playersToDisplay = filteredPlayers.slice(start, end);
@@ -26,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     return;
                 }
 
-               // Create a table
+                // Create a table
                 const table = document.createElement("table");
                 const tableHeader = document.createElement("thead");
                 const tableBody = document.createElement("tbody");
