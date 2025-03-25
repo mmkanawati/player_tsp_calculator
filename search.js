@@ -52,6 +52,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     resultsDiv.appendChild(playerInfo);
                 });
 
+                 // Display "Previous" button if we are not on the first page
+                if (currentPage > 0) {
+                    const prevButton = document.createElement("button");
+                    prevButton.textContent = "Previous";
+                    prevButton.addEventListener("click", function () {
+                        currentPage--;
+                        displayPlayers(); // Load previous page of results
+                    });
+                    resultsDiv.appendChild(prevButton);
+                }
+                
                 // Display the "Next" button if there are more players to show
                 if (end < filteredPlayers.length) {
                     const nextButton = document.createElement("button");
