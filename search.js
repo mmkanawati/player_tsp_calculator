@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const firstNameSearch = document.getElementById("firstNameSearch");
     const lastNameSearch = document.getElementById("lastNameSearch");
     const resultsDiv = document.getElementById("results");
+    const searchButton = document.getElementById("searchButton");
 
     // Fetch player data from a JSON file
     fetch('player_data.json')
@@ -55,9 +56,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 displayPlayers(filteredPlayers);
             }
 
-            // Add event listeners to the search input fields
-            firstNameSearch.addEventListener("input", filterPlayers);
-            lastNameSearch.addEventListener("input", filterPlayers);
+            // Add event listener to the search button
+            searchButton.addEventListener("click", filterPlayers);
 
             // Display all players initially
             displayPlayers(players);
