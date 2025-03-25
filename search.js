@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     // Display player information
                     playerInfo.innerHTML = `
                         <p><strong>${player['First Name']} ${player['Last Name']}</strong></p>
+                        <p>Season: ${player['Season.1']}</p>
                         <p>Team: ${player['Team']}</p>
                         <p>Games Played: ${player['GP']}</p>
                         <p>Points: ${player['PTS']}</p>
