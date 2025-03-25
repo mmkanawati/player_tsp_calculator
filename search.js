@@ -4,24 +4,30 @@ document.addEventListener("DOMContentLoaded", function () {
     const resultsDiv = document.getElementById("results");
     const searchButton = document.getElementById("searchButton");
 
-    let players = []; // Declare players here to load them once and avoid showing all players initially
+    let players = []; // Store all players data
+    let filteredPlayers = []; // Store the filtered player data based on search input
+    let currentPage = 0; // Track the current page for pagination
 
     // Fetch player data from a JSON file
     fetch('player_data.json')
         .then(response => response.json())
         .then(data => {
-            players = data; // Store the player data
+            players = data; // Store player data
 
-            // Function to display players
-            function displayPlayers(filteredPlayers) {
+            // Function to display players (5 per page)
+            function displayPlayers() {
                 resultsDiv.innerHTML = ""; // Clear previous results
 
-                if (filteredPlayers.length === 0) {
+                const start = currentPage * 5;
+                const end = start + 5;
+                const playersToDisplay = filteredPlayers.slice(start, end);
+
+                if (playersToDisplay.length === 0) {
                     resultsDiv.innerHTML = "<p>No players found.</p>";
                     return;
                 }
 
-                filteredPlayers.forEach(player => {
+                playersToDisplay.forEach(player => {
                     const playerInfo = document.createElement("div");
                     playerInfo.classList.add("player");
 
@@ -43,6 +49,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     resultsDiv.appendChild(playerInfo);
                 });
+
+                // Display the "Next" button if there are more players to show
+                if (end < filteredPlayers.length) {
+                    const nextButton = document.createElement("button");
+                    nextButton.textContent = "Next";
+                    nextButton.addEventListener("click", function () {
+                        currentPage++;
+                        displayPlayers(); // Load next page of results
+                    });
+                    resultsDiv.appendChild(nextButton);
+                }
             }
 
             // Function to filter players by first name and last name
@@ -50,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const firstNameInput = firstNameSearch.value.toLowerCase();
                 const lastNameInput = lastNameSearch.value.toLowerCase();
 
-                const filteredPlayers = players.filter(player => {
+                filteredPlayers = players.filter(player => {
                     // Ensure 'First Name' and 'Last Name' are not null or undefined
                     const firstName = player['First Name'] ? player['First Name'].toLowerCase() : '';
                     const lastName = player['Last Name'] ? player['Last Name'].toLowerCase() : '';
@@ -61,14 +78,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     );
                 });
 
-                displayPlayers(filteredPlayers); // Display the filtered players after clicking the button
+                currentPage = 0; // Reset to the first page when filtering
+                displayPlayers(); // Display filtered players
             }
 
-            // Add event listener to the search button
-            searchButton.addEventListener("click", function (event) {
-                event.preventDefault(); // Prevent form submission if it's in a form
-                filterPlayers(); // Call filterPlayers when button is clicked
-            });
+            // Add event listeners to search fields for live filtering
+            firstNameSearch.addEventListener("input", filterPlayers);
+            lastNameSearch.addEventListener("input", filterPlayers);
+
+            // Initial display to ensure no results are shown before filtering
+            displayPlayers();
         })
         .catch(error => {
             console.error('Error loading player data:', error);
