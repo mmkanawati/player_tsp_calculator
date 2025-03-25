@@ -60,7 +60,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Add event listener to the search button
             searchButton.addEventListener("click", filterPlayers);
-
         })
         .catch(error => {
             console.error('Error loading player data:', error);
