@@ -4,11 +4,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const resultsDiv = document.getElementById("results");
     const searchButton = document.getElementById("searchButton");
 
+    let players = []; // Declare players here to load them once and avoid showing all players initially
+
     // Fetch player data from a JSON file
     fetch('player_data.json')
         .then(response => response.json())
         .then(data => {
-            const players = data; // Now 'players' holds the data from the JSON file
+            players = data; // Store the player data
 
             // Function to display players
             function displayPlayers(filteredPlayers) {
@@ -53,14 +55,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     (lastNameInput === "" || player['Last Name'].toLowerCase().includes(lastNameInput))
                 );
 
-                displayPlayers(filteredPlayers);
+                displayPlayers(filteredPlayers); // Display the filtered players after clicking the button
             }
 
             // Add event listener to the search button
             searchButton.addEventListener("click", filterPlayers);
 
-            // Display all players initially
-            displayPlayers(players);
         })
         .catch(error => {
             console.error('Error loading player data:', error);
