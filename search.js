@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const resultsDiv = document.getElementById("results");
 
     // Fetch player data from a JSON file
-    fetch('players.json')
+    fetch('player_data.json')
         .then(response => response.json())
         .then(data => {
             const players = data; // Now 'players' holds the data from the JSON file
