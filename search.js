@@ -60,9 +60,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Add event listener to the search button
             searchButton.addEventListener("click", function (event) {
-            event.preventDefault(); // Prevent form submission if it's in a form
-            filterPlayers(); // Call filterPlayers when button is clicked
-        });
+                event.preventDefault(); // Prevent form submission if it's in a form
+                filterPlayers(); // Call filterPlayers when button is clicked
+            });
+        })
         .catch(error => {
             console.error('Error loading player data:', error);
             resultsDiv.innerHTML = "<p>Failed to load player data. Please try again later.</p>";
