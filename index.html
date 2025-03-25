@@ -5,8 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Player Eligibility</title>
     <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script> <!-- Player Search script -->
+    <script defer src="app.js"></script> <!-- Player Eligibility script -->
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        input { width: 80%; padding: 10px; margin-top: 10px; }
+        .results { margin-top: 20px; }
+        .player { border: 1px solid #ccc; padding: 10px; margin: 5px; }
+        .hidden { display: none; }
+    </style>
 </head>
 <body>
+
+    <!-- Player Search Section -->
+    <h1>Player Search</h1>
+    <input type="text" id="searchBar" placeholder="Search for players...">
+    <div class="results" id="results"></div>
+    <button id="prev" class="hidden">Previous</button>
+    <button id="next" class="hidden">Next</button>
 
     <form id="playerForm">
         <h1>Player TSP Calculator</h1>
