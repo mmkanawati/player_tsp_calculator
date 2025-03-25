@@ -17,6 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
             function displayPlayers() {
                 resultsDiv.innerHTML = ""; // Clear previous results
 
+                filteredPlayers.sort((a, b) => {
+                    // Sort by the 'Season.1' field (assuming the season is in a format that can be directly compared)
+                    return a['Season.1'] > b['Season.1'] ? 1 : (a['Season.1'] < b['Season.1'] ? -1 : 0);
+                });
                 // Calculate slice indices for pagination
                 const start = currentPage * 5;
                 const end = start + 5;
