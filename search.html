@@ -1,1 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Search</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        input { width: 80%; padding: 10px; margin-top: 10px; }
+        .results { margin-top: 20px; }
+        .player { border: 1px solid #ccc; padding: 10px; margin: 5px; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
 
+    <h1>Player Search</h1>
+
+    <!-- Search Fields -->
+    <input type="text" id="firstNameSearch" placeholder="Search by First Name">
+    <input type="text" id="lastNameSearch" placeholder="Search by Last Name">
+    <div class="results" id="result"></div>
+
+    <script src="search.js"></script> <!-- Link to the JavaScript file for search logic -->
+
+</body>
+</html>
