@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // Table headers
                 const headers = [
-                    "First Name", "Last Name", "Season", "Team", "Games Played", 
+                    "First Name", "Last Name", "Division", "Season", "Team", "Games Played", 
                     "Points", "Rebounds", "Assists", "Steals", "Blocks", "Turnovers", 
                     "Personal Fouls", "TSP"
                 ];
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     const row = document.createElement("tr");
 
                     const playerData = [
-                        player['First Name'], player['Last Name'], player['Season.1'], 
+                        player['First Name'], player['Last Name'], player['DIV'], player['Season.1'], 
                         player['Team'], player['GP'], player['PTS'], player['REB'], 
                         player['AST'], player['STL'], player['BLK'], player['TO'], 
                         player['PF'], player['TSP']
