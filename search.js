@@ -26,30 +26,50 @@ document.addEventListener("DOMContentLoaded", function () {
                     return;
                 }
 
-                playersToDisplay.forEach(player => {
-                    const playerInfo = document.createElement("div");
-                    playerInfo.classList.add("player");
+               // Create a table
+                const table = document.createElement("table");
+                const tableHeader = document.createElement("thead");
+                const tableBody = document.createElement("tbody");
 
-                    // Display player information
-                    playerInfo.innerHTML = `
-                        <div class="player-details">
-                            <div><strong>${player['First Name']} ${player['Last Name']}</strong></div>
-                            <div>Season: ${player['Season.1']}</div>
-                            <div>Team: ${player['Team']}</div>
-                            <div>Games Played: ${player['GP']}</div>
-                            <div>Points: ${player['PTS']}</div>
-                            <div>Rebounds: ${player['REB']}</div>
-                            <div>Assists: ${player['AST']}</div>
-                            <div>Steals: ${player['STL']}</div>
-                            <div>Blocks: ${player['BLK']}</div>
-                            <div>Turnovers: ${player['TO']}</div>
-                            <div>Personal Fouls: ${player['PF']}</div>
-                            <div>TSP: ${player['TSP']}</div>
-                        </div>
-                    `;
+                // Table headers
+                const headers = [
+                    "First Name", "Last Name", "Season", "Team", "Games Played", 
+                    "Points", "Rebounds", "Assists", "Steals", "Blocks", "Turnovers", 
+                    "Personal Fouls", "TSP"
+                ];
+                const headerRow = document.createElement("tr");
 
-                    resultsDiv.appendChild(playerInfo);
+                headers.forEach(header => {
+                    const th = document.createElement("th");
+                    th.textContent = header;
+                    headerRow.appendChild(th);
                 });
+
+                tableHeader.appendChild(headerRow);
+                table.appendChild(tableHeader);
+
+                // Add data rows
+                playersToDisplay.forEach(player => {
+                    const row = document.createElement("tr");
+
+                    const playerData = [
+                        player['First Name'], player['Last Name'], player['Season.1'], 
+                        player['Team'], player['GP'], player['PTS'], player['REB'], 
+                        player['AST'], player['STL'], player['BLK'], player['TO'], 
+                        player['PF'], player['TSP']
+                    ];
+
+                    playerData.forEach(data => {
+                        const td = document.createElement("td");
+                        td.textContent = data;
+                        row.appendChild(td);
+                    });
+
+                    tableBody.appendChild(row);
+                });
+
+                table.appendChild(tableBody);
+                resultsDiv.appendChild(table);
 
                 // Clear previous pagination buttons
                 const paginationDiv = document.getElementById("pagination");
