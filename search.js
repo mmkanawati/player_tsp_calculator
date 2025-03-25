@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const firstNameSearch = document.getElementById("firstNameSearch");
     const lastNameSearch = document.getElementById("lastNameSearch");
     const resultsDiv = document.getElementById("results");
-    const searchButton = document.getElementById("searchButton");
 
     let players = []; // Store all players data
     let filteredPlayers = []; // Store the filtered player data based on search input
@@ -52,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     resultsDiv.appendChild(playerInfo);
                 });
 
-                 // Display "Previous" button if we are not on the first page
+                // Display "Previous" button if we are not on the first page
                 if (currentPage > 0) {
                     const prevButton = document.createElement("button");
                     prevButton.textContent = "Previous";
@@ -62,8 +61,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     });
                     resultsDiv.appendChild(prevButton);
                 }
-                
-                // Display the "Next" button if there are more players to show
+
+                // Display "Next" button if there are more players to show
                 if (end < filteredPlayers.length) {
                     const nextButton = document.createElement("button");
                     nextButton.textContent = "Next";
