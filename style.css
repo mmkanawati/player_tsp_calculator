@@ -15,3 +15,28 @@ button {
   font-size: 1.2em;
   padding: 10px;
 }
+
+.player {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 5px;
+    display: flex;
+    flex-wrap: wrap;  /* Allow wrapping to the next line if there is not enough space */
+    justify-content: space-between; /* Distribute space evenly */
+}
+
+.player-details {
+    display: flex;
+    flex-wrap: wrap;  /* Allow wrapping to the next line if needed */
+    justify-content: space-between;
+}
+
+.player-details div {
+    margin: 5px 10px;
+    flex: 1;  /* Allow the elements to stretch and take equal space */
+}
+
+.player-details div strong {
+    display: block;
+    margin-bottom: 5px;
+}
