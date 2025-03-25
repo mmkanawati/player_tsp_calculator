@@ -1,70 +1,47 @@
-let playerData = [];
-let currentPage = 0;
-const resultsPerPage = 5;
+document.addEventListener("DOMContentLoaded", function () {
+    const resultDiv = document.getElementById("result");
 
-async function loadData() {
-    try {
-        const response = await fetch("player_data.json");
-        playerData = await response.json();
-    } catch (error) {
-        console.error("Error loading player data:", error);
-    }
-}
+    // Fetch player data from the JSON file
+    fetch('players.json')
+        .then(response => response.json())
+        .then(players => {
+            // Function to display players
+            function displayPlayers(filteredPlayers) {
+                resultDiv.innerHTML = ""; // Clear previous results
 
-function searchPlayers(query) {
-    if (!query.trim()) {
-        document.getElementById("results").innerHTML = "";
-        document.getElementById("prev").classList.add("hidden");
-        document.getElementById("next").classList.add("hidden");
-        return;
-    }
+                if (filteredPlayers.length === 0) {
+                    resultDiv.innerHTML = "<p>No players found.</p>";
+                    return;
+                }
 
-    const results = playerData.filter(player =>
-        player.name.toLowerCase().includes(query.toLowerCase())
-    );
+                filteredPlayers.forEach(player => {
+                    const playerInfo = document.createElement("p");
+                    playerInfo.textContent = `${player["First Name"]} ${player["Last Name"]} - TSP: ${player.tsp}, Games: ${player.games}, Division: ${player.division}`;
+                    resultDiv.appendChild(playerInfo);
+                });
+            }
 
-    displayResults(results);
-}
+            // Function to filter players
+            function filterPlayers() {
+                const firstNameInput = document.getElementById("firstNameSearch").value.toLowerCase();
+                const lastNameInput = document.getElementById("lastNameSearch").value.toLowerCase();
 
-function displayResults(results) {
-    const resultsDiv = document.getElementById("results");
-    resultsDiv.innerHTML = "";
+                const filtered = players.filter(player =>
+                    (firstNameInput === "" || player["First Name"].toLowerCase().includes(firstNameInput)) &&
+                    (lastNameInput === "" || player["Last Name"].toLowerCase().includes(lastNameInput))
+                );
 
-    if (results.length === 0) {
-        resultsDiv.innerHTML = "<p>No results found.</p>";
-        return;
-    }
+                displayPlayers(filtered);
+            }
 
-    let start = currentPage * resultsPerPage;
-    let end = start + resultsPerPage;
-    let paginatedResults = results.slice(start, end);
+            // Attach event listeners to search inputs
+            document.getElementById("firstNameSearch").addEventListener("input", filterPlayers);
+            document.getElementById("lastNameSearch").addEventListener("input", filterPlayers);
 
-    paginatedResults.forEach(player => {
-        const div = document.createElement("div");
-        div.classList.add("player");
-        div.innerHTML = `<strong>${player.name}</strong> - ${player.position} | ${player.team}`;
-        resultsDiv.appendChild(div);
-    });
-
-    document.getElementById("prev").classList.toggle("hidden", currentPage === 0);
-    document.getElementById("next").classList.toggle("hidden", end >= results.length);
-}
-
-document.getElementById("searchBar").addEventListener("input", (e) => {
-    currentPage = 0;
-    searchPlayers(e.target.value);
+            // Initially display all players
+            displayPlayers(players);
+        })
+        .catch(error => {
+            console.error("Error loading player data:", error);
+        });
 });
-
-document.getElementById("prev").addEventListener("click", () => {
-    if (currentPage > 0) {
-        currentPage--;
-        searchPlayers(document.getElementById("searchBar").value);
-    }
-});
-
-document.getElementById("next").addEventListener("click", () => {
-    currentPage++;
-    searchPlayers(document.getElementById("searchBar").value);
-});
-
-loadData();
