@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Search & Eligibility</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Player TSP Calculator -->
+    <form id="playerForm">
+        <h1>Player TSP Calculator</h1>
+        <p id="disclaimer" style="font-style: italic; color: gray;">
+            *Disclaimer: None of these results are final and do not include exceptions. Eligibility is subject to further review.*
+        </p>
+
+        <p>
+            You can find the TSP and game numbers for past seasons here:
+            <a href="https://cdn1.sportngin.com/attachments/document/0123/5681/MBL_Stats_Archive_-_All_Divisions_-_Summer_2005_to_Summer_2024.xlsx" target="_blank">
+                MBL Stats Archive
+            </a>
+        </p>
+
+        <p>
+            You can find the league's official rules here:
+            <a href="https://www.mbleague.com/rules" target="_blank">MBL Official Rules</a>
+        </p>
+
+        <!-- Division Checkboxes -->
+        <label>Which divisions have you played in the past two seasons?</label><br>
+        <input type="checkbox" name="divisionsPlayed" value="D1"> D1<br>
+        <input type="checkbox" name="divisionsPlayed" value="D2"> D2<br>
+        <input type="checkbox" name="divisionsPlayed" value="D3"> D3<br><br>
+
+        <!-- Division Radio -->
+        <label>Which division do you plan on playing?</label><br>
+        <input type="radio" name="divisionsPlanned" value="D1"> D1<br>
+        <input type="radio" name="divisionsPlanned" value="D2"> D2<br>
+        <input type="radio" name="divisionsPlanned" value="D3"> D3<br><br>
+
+        <p id="note" style="display: none;"><strong>Note:</strong> If the player has played fewer than 10 games...</p>
+
+        <!-- D1 Fields -->
+        <div id="D1Fields" style="display: none;">
+            <label>D1 TSP:</label><input type="number" id="D1TSP"><br>
+            <label>D1 Games:</label><input type="number" id="D1Games"><br><br>
+        </div>
+
+        <!-- D2 Fields -->
+        <div id="D2Fields" style="display: none;">
+            <label>D2 TSP:</label><input type="number" id="D2TSP"><br>
+            <label>D2 Games:</label><input type="number" id="D2Games"><br><br>
+        </div>
+
+        <!-- D3 Fields -->
+        <div id="D3Fields" style="display: none;">
+            <label>D3 TSP:</label><input type="number" id="D3TSP"><br>
+            <label>D3 Games:</label><input type="number" id="D3Games"><br><br>
+        </div>
+
+        <!-- Results -->
+        <div id="eligibilityResult"></div>
+    </form>
+
+    <hr>
+
+    <!-- Player Search Section -->
+    <h1>Player Search</h1>
+    <div>
+        <label for="firstNameSearch">First Name:</label>
+        <input type="text" id="firstNameSearch" placeholder="Search by first name">
+    </div>
+    <div>
+        <label for="lastNameSearch">Last Name:</label>
+        <input type="text" id="lastNameSearch" placeholder="Search by last name">
+    </div>
+
+    <div id="results"></div>
+
+    <!-- Bottom Link -->
+    <div class="bottom-box">
+        <a href="https://mmkanawati.github.io/player_tsp_calculator/" class="link">TSP Calculator</a>
+    </div>
+
+    <!-- Scripts -->
+    <script src="search.js"></script>
+</body>
+</html>
