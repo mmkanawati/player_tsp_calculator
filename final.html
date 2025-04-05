@@ -3,24 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Player Eligibility and Search</title>
+    <title>Player Search</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <h1>Player Search</h1>
+
+    <div>
+        <label for="firstNameSearch">First Name:</label>
+        <input type="text" id="firstNameSearch" placeholder="Search by first name">
+    </div>
+    <div>
+        <label for="lastNameSearch">Last Name:</label>
+        <input type="text" id="lastNameSearch" placeholder="Search by last name">
+    </div>
+
+<!--     <button type="button" id="searchButton">Search</button> -->
+
+    <div id="results"></div>
+
+
+   <!-- Link to the search page with a box at the bottom -->
+    <div class="new-line"></div>
+    <div class="bottom-box">
+        <a href="https://mmkanawati.github.io/player_tsp_calculator/" class="link">TSP Calculator</a>
+    </div>
+
+    
     <!-- Player Eligibility Form -->
     <form id="playerForm">
         <h1>Player TSP Calculator</h1>
 
         <p id="disclaimer" style="font-style: italic; color: gray; display: block;">
             *Disclaimer: None of these results are final and do not include exceptions. Eligibility is subject to further review.*
-        </p>
-
-        <p>
-            You can find the TSP and game numbers for past seasons here: 
-            <a href="https://cdn1.sportngin.com/attachments/document/0123/5681/MBL_Stats_Archive_-_All_Divisions_-_Summer_2005_to_Summer_2024.xlsx?_gl=1*wjolzs*_ga*ODY0NDE5MzI0LjE3NDE0NjMyNTA.*_ga_PQ25JN9PJ8*MTc0MjgyOTIyOC4xOC4xLjE3NDI4Mjk1OTYuNjAuMC4w#" target="_blank">
-                MBL Stats Archive (Summer 2005 to Summer 2024)
-            </a>
         </p>
 
         <p>
@@ -69,15 +85,6 @@
     </form>
 
     <div id="result"></div>
-
-    <!-- Player Search Section -->
-    <h2>Player Search</h2>
-    <label for="firstNameSearch">First Name:</label>
-    <input type="text" id="firstNameSearch">
-    <label for="lastNameSearch">Last Name:</label>
-    <input type="text" id="lastNameSearch">
-
-    <div id="results"></div>
 
     <script src="final.js"></script>
 </body>
