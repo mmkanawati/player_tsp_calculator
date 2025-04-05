@@ -1,4 +1,3 @@
-/* styles.css */
 body {
   font-family: Arial, sans-serif;
   padding: 20px;
@@ -82,26 +81,4 @@ th, td {
 
 .link:hover {
     background-color: #45a049; /* Darker green on hover */
-}
-
-#disclaimer {
-  font-style: italic;
-  color: gray;
-}
-
-.hyperlinks a {
-  margin-right: 15px;
-  text-decoration: none;
-  color: #0066cc;
-}
-
-.hyperlinks a:hover {
-  text-decoration: underline;
-}
-
-.divisionFields {
-  margin: 10px 0;
-  padding: 10px;
-  border: 1px solid #ddd;
-  display: none;
 }
