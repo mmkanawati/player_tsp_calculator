@@ -2,39 +2,13 @@
 document.querySelectorAll('input[name="divisionsPlayed"]').forEach(checkbox => {
     checkbox.addEventListener('change', function() {
         const note = document.getElementById('note');
+        // If any checkbox is checked, show the note; otherwise, hide it
         const anyChecked = document.querySelectorAll('input[name="divisionsPlayed"]:checked').length > 0;
         note.style.display = anyChecked ? 'block' : 'none';  // Show or hide the note based on checkbox status
     });
 });
 
-// Search functionality
-document.getElementById("firstNameSearch").addEventListener("input", searchPlayers);
-document.getElementById("lastNameSearch").addEventListener("input", searchPlayers);
 
-function searchPlayers() {
-    const firstName = document.getElementById("firstNameSearch").value.toLowerCase();
-    const lastName = document.getElementById("lastNameSearch").value.toLowerCase();
-    const resultsDiv = document.getElementById("results");
-
-    // Simulate a player search (replace this with actual logic or API calls)
-    const mockPlayers = [
-        { firstName: "John", lastName: "Doe", tsp: 30, games: 5 },
-        { firstName: "Jane", lastName: "Smith", tsp: 40, games: 6 },
-        { firstName: "Jake", lastName: "Johnson", tsp: 20, games: 4 }
-    ];
-
-    // Filter players based on search input
-    const filteredPlayers = mockPlayers.filter(player => {
-        return player.firstName.toLowerCase().includes(firstName) && player.lastName.toLowerCase().includes(lastName);
-    });
-
-    // Display results
-    resultsDiv.innerHTML = filteredPlayers.map(player => {
-        return `<p>${player.firstName} ${player.lastName} - TSP: ${player.tsp}, Games: ${player.games}</p>`;
-    }).join('');
-}
-
-// Player eligibility form submission
 document.getElementById("playerForm").addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -48,13 +22,13 @@ document.getElementById("playerForm").addEventListener("submit", function (event
 
     // Get inputs for each division (only if the division is selected)
     const D1Games = divisionsPlayed.includes("D1") ? parseInt(document.getElementById("D1Games").value) || 0 : 0;
-    const D1TSP = divisionsPlayed.includes("D1") ? parseFloat(document.getElementById("D1TSP").value) || 0 : 0;
+    const D1TSP = divisionsPlayed.includes("D1") ? parseInt(document.getElementById("D1TSP").value) || 0 : 0;
 
     const D2Games = divisionsPlayed.includes("D2") ? parseInt(document.getElementById("D2Games").value) || 0 : 0;
-    const D2TSP = divisionsPlayed.includes("D2") ? parseFloat(document.getElementById("D2TSP").value) || 0 : 0;
+    const D2TSP = divisionsPlayed.includes("D2") ? parseInt(document.getElementById("D2TSP").value) || 0 : 0;
 
     const D3Games = divisionsPlayed.includes("D3") ? parseInt(document.getElementById("D3Games").value) || 0 : 0;
-    const D3TSP = divisionsPlayed.includes("D3") ? parseFloat(document.getElementById("D3TSP").value) || 0 : 0;
+    const D3TSP = divisionsPlayed.includes("D3") ? parseInt(document.getElementById("D3TSP").value) || 0 : 0;
 
     // Eligibility Check
     let resultText = "";
@@ -80,12 +54,14 @@ document.getElementById("playerForm").addEventListener("submit", function (event
         resultText += `D3: ${(D3TSP / D3Games).toFixed(2)} TSP\n`;
     }
 
-    // Eligibility check logic based on the division they plan to play
+    // Check for eligibility based on the division they want to play
     if (divisionPlanned === "D1") {
+        // D1 Eligibility Check
         eligibilityStatus = "Eligible for D1.";
     }
 
     if (divisionPlanned === "D2") {
+        // D2 Eligibility Check
         if (D1TSP / D1Games >= 16.5) {
             eligibilityStatus = "Not eligible for D2.";
         } else if (D2TSP / D2Games >= 30.0) {
@@ -100,6 +76,7 @@ document.getElementById("playerForm").addEventListener("submit", function (event
     }
 
     if (divisionPlanned === "D3") {
+        // D3 Eligibility Check
         if (D2TSP / D2Games >= 12) {
             eligibilityStatus = "Not eligible for D3.";
         } else if (D3TSP / D3Games >= 20.0) {
@@ -133,4 +110,149 @@ document.querySelectorAll('input[name="divisionsPlayed"]').forEach(checkbox => {
         document.getElementById('D2Fields').style.display = d2Played ? 'block' : 'none';
         document.getElementById('D3Fields').style.display = d3Played ? 'block' : 'none';
     });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const firstNameSearch = document.getElementById("firstNameSearch");
+    const lastNameSearch = document.getElementById("lastNameSearch");
+    const resultsDiv = document.getElementById("results");
+
+    let players = []; // Store all players data
+    let filteredPlayers = []; // Store the filtered player data based on search input
+    let currentPage = 0; // Track the current page for pagination
+
+    // Fetch player data from a JSON file
+    fetch('player_data.json')
+        .then(response => response.json())
+        .then(data => {
+            players = data; // Store player data
+
+            // Function to display players (5 per page)
+            function displayPlayers() {
+                resultsDiv.innerHTML = ""; // Clear previous results
+
+                filteredPlayers.sort((a, b) => {
+                    // Sort by the 'Season.1' field (assuming the season is in a format that can be directly compared)
+                    return a['Season.1'] < b['Season.1'] ? 1 : (a['Season.1'] > b['Season.1'] ? -1 : 0);
+                });
+                // Calculate slice indices for pagination
+                const start = currentPage * 5;
+                const end = start + 5;
+                const playersToDisplay = filteredPlayers.slice(start, end);
+
+                if (playersToDisplay.length === 0) {
+                    resultsDiv.innerHTML = "<p>No players found.</p>";
+                    return;
+                }
+
+                // Create a table
+                const table = document.createElement("table");
+                const tableHeader = document.createElement("thead");
+                const tableBody = document.createElement("tbody");
+
+                // Table headers
+                const headers = [
+                    "First Name", "Last Name", "Division", "Season", "Team", "Games Played", 
+                    "Points", "Rebounds", "Assists", "Steals", "Blocks", "Turnovers", 
+                    "Personal Fouls", "TSP"
+                ];
+                const headerRow = document.createElement("tr");
+
+                headers.forEach(header => {
+                    const th = document.createElement("th");
+                    th.textContent = header;
+                    headerRow.appendChild(th);
+                });
+
+                tableHeader.appendChild(headerRow);
+                table.appendChild(tableHeader);
+
+                // Add data rows
+                playersToDisplay.forEach(player => {
+                    const row = document.createElement("tr");
+
+                    const playerData = [
+                        player['First Name'], player['Last Name'], player['DIV'], player['Season.1'], 
+                        player['Team'], player['GP'], player['PTS'], player['REB'], 
+                        player['AST'], player['STL'], player['BLK'], player['TO'], 
+                        player['PF'], player['TSP']
+                    ];
+
+                    playerData.forEach(data => {
+                        const td = document.createElement("td");
+                        td.textContent = data;
+                        row.appendChild(td);
+                    });
+
+                    tableBody.appendChild(row);
+                });
+
+                table.appendChild(tableBody);
+                resultsDiv.appendChild(table);
+
+                // Clear previous pagination buttons
+                const paginationDiv = document.getElementById("pagination");
+                if (paginationDiv) {
+                    paginationDiv.remove();
+                }
+
+                const paginationButtons = document.createElement("div");
+                paginationButtons.id = "pagination";
+
+                // Display "Previous" button if we are not on the first page
+                if (currentPage > 0) {
+                    const prevButton = document.createElement("button");
+                    prevButton.textContent = "Previous";
+                    prevButton.addEventListener("click", function () {
+                        currentPage--;
+                        displayPlayers(); // Load previous page of results
+                    });
+                    paginationButtons.appendChild(prevButton);
+                }
+
+                // Display "Next" button if there are more players to show
+                if (end < filteredPlayers.length) {
+                    const nextButton = document.createElement("button");
+                    nextButton.textContent = "Next";
+                    nextButton.addEventListener("click", function () {
+                        currentPage++;
+                        displayPlayers(); // Load next page of results
+                    });
+                    paginationButtons.appendChild(nextButton);
+                }
+
+                resultsDiv.appendChild(paginationButtons);
+            }
+
+            // Function to filter players by first name and last name
+            function filterPlayers() {
+                const firstNameInput = firstNameSearch.value.toLowerCase();
+                const lastNameInput = lastNameSearch.value.toLowerCase();
+
+                filteredPlayers = players.filter(player => {
+                    // Ensure 'First Name' and 'Last Name' are not null or undefined
+                    const firstName = player['First Name'] ? player['First Name'].toLowerCase() : '';
+                    const lastName = player['Last Name'] ? player['Last Name'].toLowerCase() : '';
+
+                    return (
+                        (firstNameInput === "" || firstName.includes(firstNameInput)) &&
+                        (lastNameInput === "" || lastName.includes(lastNameInput))
+                    );
+                });
+
+                currentPage = 0; // Reset to the first page when filtering
+                displayPlayers(); // Display filtered players
+            }
+
+            // Add event listeners to search fields for live filtering
+            firstNameSearch.addEventListener("input", filterPlayers);
+            lastNameSearch.addEventListener("input", filterPlayers);
+
+            // Initial display to ensure no results are shown before filtering
+            displayPlayers();
+        })
+        .catch(error => {
+            console.error('Error loading player data:', error);
+            resultsDiv.innerHTML = "<p>Failed to load player data. Please try again later.</p>";
+        });
 });
